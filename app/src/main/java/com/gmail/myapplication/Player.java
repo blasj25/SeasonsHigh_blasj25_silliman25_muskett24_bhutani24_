@@ -14,6 +14,7 @@ public class Player {
 
     public Player(String initName, int initScore, int initTurnID){
         this.name = initName;
+        //score should initialize as zero, is it necessary to have a parameter for this?
         this.score = initScore;
         this.turnID = initTurnID;
         isFolded = false;

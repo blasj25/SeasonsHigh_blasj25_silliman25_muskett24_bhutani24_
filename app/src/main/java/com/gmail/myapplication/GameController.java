@@ -21,8 +21,6 @@ public class GameController implements View.OnClickListener{
         Button betButt = initBetButt;
         Button checkButt = initCheckButt;
         Button holdButt = initHoldButt;
-
-
     }
 
     @Override

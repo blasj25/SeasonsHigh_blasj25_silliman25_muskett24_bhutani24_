@@ -47,13 +47,11 @@ public class GameState {
         players[1] = player1;
         players[2] = player2;
 
-
         initDeck();
 
         if(getCurrentPhase().equals("Opening")){
             dealCards();
         }
-
 
     }
 
@@ -89,11 +87,6 @@ public class GameState {
             }
 
     }
-
-
-
-
-
 
     /**
      * foldAction method is used to check if the player is making and valid
@@ -218,8 +211,6 @@ public class GameState {
                 p.addCard(index, cardList.get(newCard));
                 cardList.get(newCard).setIsDealt(true);
             }
-
-
         }
     }
 
@@ -242,8 +233,6 @@ public class GameState {
 
             }
         }
-
-
     }
 
     /**
@@ -304,8 +293,6 @@ public class GameState {
         return cardList;
     }
 
-
-
     @NonNull
     @Override
     public String toString(){
@@ -321,12 +308,17 @@ public class GameState {
         String curPlayer0Cards = player0.getCards().toString();
         String curPlayer1Cards = player1.getCards().toString();
         String curPlayer2Cards = player2.getCards().toString();
-        return "Current Players: " + Arrays.toString(curPlayers) + "\n" + "Turn: " + curPlayerTurn +
-                "\n" + "Player Scores: " + "\n" + "Player 1: " + curPlayer0Score +
-                "\n" + "Player 2: " + curPlayer1Score + "\n" + "Player 3: " + curPlayer2Score
-                + "\n" + "Current Cards: " + curCards.toString() + "\n" + "Player 1 Cards: " + curPlayer0Cards
-                + "Player 2 Cards: " + curPlayer1Cards + "\n" + "Player 3 Cards: " + curPlayer2Cards
-                +"Min bet: " + curMinBet + "\n" + "Current Bet: " + curBet
-                + "\n" + "Current Phase: " + curPhase;
+        return "Current Players: " + Arrays.toString(curPlayers) +
+            "\n" + "Turn: " + curPlayerTurn +
+            "\n" + "Player Scores: " +
+            "\n" + "Player 1: " + curPlayer0Score +
+            "\n" + "Player 2: " + curPlayer1Score +
+            "\n" + "Player 3: " + curPlayer2Score +
+            "\n" + "Current Cards: " + curCards.toString() +
+            "\n" + "Player 1 Cards: " + curPlayer0Cards +
+            "\n" + "Player 2 Cards: " + curPlayer1Cards +
+            "\n" + "Player 3 Cards: " + curPlayer2Cards + "Min bet: " + curMinBet +
+            "\n" + "Current Bet: " + curBet +
+            "\n" + "Current Phase: " + curPhase;
     }
 }
