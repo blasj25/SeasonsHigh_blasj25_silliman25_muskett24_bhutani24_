@@ -346,7 +346,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imageView8"
+                        android:id="@+id/userCardOneIV"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp"
@@ -355,7 +355,7 @@
                         app:srcCompat="@drawable/ic_launcher_background" />
 
                     <ImageView
-                        android:id="@+id/imageView7"
+                        android:id="@+id/userCardTwoIV"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp"
@@ -364,7 +364,7 @@
                         app:srcCompat="@drawable/ic_launcher_background" />
 
                     <ImageView
-                        android:id="@+id/imageView6"
+                        android:id="@+id/userCardThreeIV"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp"
@@ -373,7 +373,7 @@
                         app:srcCompat="@drawable/ic_launcher_background" />
 
                     <ImageView
-                        android:id="@+id/imageView5"
+                        android:id="@+id/userCardFourIV"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp"

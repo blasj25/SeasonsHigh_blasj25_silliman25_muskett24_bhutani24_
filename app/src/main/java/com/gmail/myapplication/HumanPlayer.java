@@ -1,10 +1,10 @@
 package com.gmail.myapplication;
 
 public class HumanPlayer extends Player{
-    public HumanPlayer (String initName, int initScore, int initTurnID){
-        super(initName, initScore, initTurnID);
+    public HumanPlayer (String initName, int initTurnID){
+        super(initName, initTurnID);
     }
-    public HumanPlayer(HumanPlayer orig){
+    public HumanPlayer(Player orig){
         super(orig);
     }
 

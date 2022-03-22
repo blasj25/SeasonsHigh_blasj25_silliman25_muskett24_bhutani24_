@@ -9,50 +9,40 @@ import java.util.Random;
 
 public class GameState {
     int roundCount;
-    int minBet;
+    int minBet; //ante
     int currentBet;
     int currentPot;
     int playerTurnID;
-    int player0Score;
-    int player1Score;
-    int player2Score;
-    Player[] players = new Player[3];
-    HumanPlayer player0;
-    ComputerPlayer player1;
-    ComputerPlayer player2;
-    List <Card> cardList = new ArrayList<>();
+    List <Player> players;
+    List <Card> cardList;
 
     String[] phases = {"Opening", "Betting", "Drawing", "Showing"};
+    //TODO: see setNextPlayer()
     String currentPhase;
 
     /**
      * ctor makes a new a game
      */
     public GameState(){
+        players = new ArrayList<Player>();
+        cardList = new ArrayList<Card>();
         roundCount = 1;
-        minBet = 2500;
+        minBet = 2500; //ante
         currentBet = 0;
         currentPot = 0;
         playerTurnID = 0;
-        player0Score = 200000;
-        player1Score = 200000;
-        player2Score = 200000;
         setPhase(0);
 
-        player0 = new HumanPlayer("Player 1", player0Score, 0);
-        player1 = new ComputerPlayer(player1Score, 1);
-        player2 = new ComputerPlayer(player2Score, 2);
-
-        players[0] = player0;
-        players[1] = player1;
-        players[2] = player2;
+        //sets up three player objects, one human, two computer.
+        players.add(new HumanPlayer("Player0", 0));
+        players.add(new ComputerPlayer(1));
+        players.add(new ComputerPlayer(2));
 
         initDeck();
 
         if(getCurrentPhase().equals("Opening")){
             dealCards();
         }
-
     }
 
     /**
@@ -63,28 +53,18 @@ public class GameState {
         this.minBet = orig.minBet;
         this.currentBet = orig.currentBet;
         this.currentPot = orig.currentPot;
-        this.players = new Player[3];
+        this.players = new ArrayList<Player>();
             for(int i = 0; i < 3; i++){
-                this.players[i] = new Player(orig.players[i]);
+                this.players.add(new Player(orig.players.get(i)));
             }
         this.currentPhase = orig.getCurrentPhase();
         this.playerTurnID = orig.playerTurnID;
         this.phases = orig.phases;
         this.roundCount = orig.roundCount;
-
-        this.player0Score = orig.player0Score;
-        this.player1Score = orig.player1Score;
-        this.player2Score = orig.player2Score;
-
-        this.player0 = new HumanPlayer(orig.player0);
-        this.player1 = new ComputerPlayer(orig.player1);
-        this.player2 = new ComputerPlayer(orig.player2);
-
-
         this.cardList = new ArrayList<>();
-            for(Card c : orig.cardList){
-                this.cardList.add(new Card(c));
-            }
+        for(Card c : orig.cardList){
+            this.cardList.add(new Card(c));
+        }
 
     }
 
@@ -99,7 +79,9 @@ public class GameState {
         if(p.getTurnID() == playerTurnID){
             if(!p.isFolded) {
                 if (getCurrentPhase().equals("Betting")) {
-                    p.cards.clear();
+                    for(int i = 0; i < p.hand.length; i++){
+                        p.hand[i] = null;
+                    }
                     p.setFolded(true);
                     setNextPlayer();
                     setNextPhase();
@@ -125,7 +107,7 @@ public class GameState {
                 if(betAmount > minBet && betAmount >= currentBet){
                     if(betAmount > currentBet){
                         currentBet = betAmount;
-                        p.setScore(p.getScore()-betAmount);
+                        p.setScore(p.getBalance()-betAmount);
                         currentPot += currentBet;
                     }
                     return true;
@@ -153,18 +135,30 @@ public class GameState {
                 numFolded += 1;
             }
         }
-        return numFolded < (players.length - 2);
+        return numFolded < (players.size() - 2);
     }
 
     /**
      * sets the playerTurnID to the next player in the sequence
      */
     public void setNextPlayer(){
+        int numPlayersFolded = 0;
         playerTurnID += 1;
-        if(playerTurnID > players.length-1){
+        if(playerTurnID > players.size()-1){
             playerTurnID = 0;
         }
-        if(players[playerTurnID].isFolded){
+        //checks to see if
+        if(players.get(playerTurnID).isFolded){
+            for(Player i: players){
+                if(i.isFolded == true){
+                    numPlayersFolded ++;
+                }
+            }
+            if(numPlayersFolded == players.size()-1){
+                setPhase(0);
+                //TODO: phases[] does not have a phase for if a player has won but shouldn't show
+                //  hand (i.e. everyone else has folded)
+            }
             setNextPlayer();
         }
     }
@@ -208,7 +202,7 @@ public class GameState {
         }
         if(drawAction(p)){
             if (!cardList.get(newCard).getIsDealt()) {
-                p.addCard(index, cardList.get(newCard));
+                p.replaceCard(index, cardList.get(newCard));
                 cardList.get(newCard).setIsDealt(true);
             }
         }
@@ -221,14 +215,16 @@ public class GameState {
         Random gen = new Random();
         int newCard = gen.nextInt(4);
         for (Player player : players) {
-            player.cards.clear();// clears players current hand
-        }
+            for(int i = 0; i < player.hand.length; i++){
+                player.hand[i] = null;
+            }
+        }// clears players current hand
         for (Player player : players) {
             for (int j = 0; j < 4; j++) {// 4 is player hand size
                 if (!cardList.get(newCard).getIsDealt()) {
                     continue;
                 }
-                player.addCard(j, cardList.get(newCard));
+                player.replaceCard(j, cardList.get(newCard));
                 cardList.get(newCard).setIsDealt(true);
 
             }
@@ -252,73 +248,63 @@ public class GameState {
         for(int card = 0; card < cardList.size(); card++){
             cardList.get(card).setIsDealt(false);
         }
-
-    }
-
-    public boolean isOver(){
-        if(allPlayersFolded()){
-            return true;
-        }
-        return false;
     }
 
     public void setPhase(int index){
-        currentPhase = phases[index];
+        this.currentPhase = this.phases[index];
     }
     public String getCurrentPhase(){
-        return currentPhase;
+        return this.currentPhase;
     }
     public int getCurrentBet() {
-        return currentBet;
+        return this.currentBet;
     }
     public int getMinBet(){
-        return currentBet;
+        return this.currentBet;
     }
-    public int getPlayer0Score(){
-        return player0Score;
-    }
-    public int getPlayer1Score(){
-        return player1Score;
-    }
-    public int getPlayer2Score(){
-        return player2Score;
+    public int getPlayerBalance(int index){
+        return this.players.get(index).getBalance();
     }
     public int getPlayerTurnID(){
-        return playerTurnID;
+        return this.playerTurnID;
     }
-    public Player[] getPlayers() {
-        return players;
+    public List<Player> getPlayers() {
+        return this.players;
     }
     public List<Card> getCardList() {
-        return cardList;
+        return this.cardList;
     }
 
     @NonNull
     @Override
     public String toString(){
-        Player[] curPlayers = getPlayers();
-        int curPlayerTurn = getPlayerTurnID();
-        int curPlayer0Score = getPlayer0Score();
-        int curPlayer1Score = getPlayer1Score();
-        int curPlayer2Score = getPlayer2Score();
-        List<Card> curCards = getCardList();
-        int curMinBet = getMinBet();
-        int curBet = getCurrentBet();
-        String curPhase = getCurrentPhase();
-        String curPlayer0Cards = player0.getCards().toString();
-        String curPlayer1Cards = player1.getCards().toString();
-        String curPlayer2Cards = player2.getCards().toString();
-        return "Current Players: " + Arrays.toString(curPlayers) +
-            "\n" + "Turn: " + curPlayerTurn +
-            "\n" + "Player Scores: " +
-            "\n" + "Player 1: " + curPlayer0Score +
-            "\n" + "Player 2: " + curPlayer1Score +
-            "\n" + "Player 3: " + curPlayer2Score +
-            "\n" + "Current Cards: " + curCards.toString() +
-            "\n" + "Player 1 Cards: " + curPlayer0Cards +
-            "\n" + "Player 2 Cards: " + curPlayer1Cards +
-            "\n" + "Player 3 Cards: " + curPlayer2Cards + "Min bet: " + curMinBet +
-            "\n" + "Current Bet: " + curBet +
-            "\n" + "Current Phase: " + curPhase;
+        String playerBalances = "";
+        String playerHands = "";
+        String hand;
+        for(int i = 0; i < players.size(); i++){
+            hand = Arrays.toString(players.get(i).getHand());
+            playerBalances += "\nPlayer " + i + " balance:" + getPlayerBalance(i);
+            playerHands += "\nPlayer " + i + " Hand:" + hand;
+        }
+        String cardsBeenDrawn = "";
+        String cardsNotBeenDrawn = "";
+        for(Card h: getCardList()){
+            if(h.getIsDealt()){
+                cardsBeenDrawn += h.toString() + ", ";
+            } else {
+                cardsNotBeenDrawn += h.toString() + ", ";
+            }
+        }
+
+        return "Current Players: " + getPlayers().toString()
+            + "\n" + "Cards in deck:" + cardsNotBeenDrawn
+                   + playerHands/* \n is included in this string */
+            + "\n" + "Discarded Cards:" + cardsBeenDrawn
+            + "\n" + "It is player " + getPlayerTurnID() + "'s turn"
+            + "\n" + "Player Balances:"
+                   + playerBalances/* \n is included in this string */
+            + "\n" + "Min bet/Ante: " + getMinBet()
+            + "\n" + "Current Bet: " + getCurrentBet()
+            + "\n" + "Current Phase: " + getCurrentPhase();
     }
 }

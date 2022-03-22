@@ -7,60 +7,62 @@ import java.util.List;
 
 public class Player {
     String name;
-    int score;
+    int balance;
     int turnID;
-    List<Card> cards = new ArrayList<>(4);
+    Card[] hand;
     boolean isFolded;
 
-    public Player(String initName, int initScore, int initTurnID){
+    public Player(String initName, int initTurnID){
         this.name = initName;
-        //score should initialize as zero, is it necessary to have a parameter for this?
-        this.score = initScore;
+        this.balance = 200000; // $200k
         this.turnID = initTurnID;
         isFolded = false;
     }
 
     public Player(Player orig){
         this.name = orig.name;
-        this.score = orig.score;
+        this.balance = orig.balance;
         this.turnID = orig.turnID;
         this.isFolded = orig.isFolded;
-        this.cards = new ArrayList<>();
-            for(Card c : orig.cards){
-                this.cards.add(new Card(c));
+        this.hand = new Card[4];
+            for(int i = 0; i < orig.hand.length; i++){
+                this.hand[i] = new Card(orig.hand[i]);
             }
     }
 
     public int getTurnID(){
-        return turnID;
-    }
-    public void addCard(int index, Card card){
-        cards.add(index, card);
+        return this.turnID;
     }
 
-    public int getScore() {
-        return score;
+    public void replaceCard(int index, Card card){
+        //this.hand.add(index, card);
+        this.hand[index] = card;
+
+    }
+
+    public int getBalance() {
+        return this.balance;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public List<Card> getCards() {
-        return cards;
+    public Card[] getHand() {
+    return this.hand;
     }
 
     public void setScore(int newScore){
-        this.score = newScore;
+        this.balance = newScore;
     }
 
     public void setFolded(boolean newStat){
-        isFolded = newStat;
+        this.isFolded = newStat;
     }
 
     @NonNull
     @Override
     public String toString(){
-        return cards.toString();
+        return this.hand.toString();
     }
 }
