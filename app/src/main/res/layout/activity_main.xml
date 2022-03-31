@@ -36,7 +36,7 @@
 
         <LinearLayout
             android:id="@+id/layout_left"
-            android:layout_width="wrap_content"
+            android:layout_width="339dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:background="#525252"
@@ -86,46 +86,45 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="64dp"
                     android:layout_weight="2"
                     android:background="#878787"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imageView12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginEnd="3dp"
+                        android:id="@+id/imageView3"
+                        android:layout_width="130dp"
+                        android:layout_height="140dp"
                         android:layout_weight="0.5"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/back_of_card" />
 
                     <ImageView
                         android:id="@+id/imageView11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="130dp"
+                        android:layout_height="140dp"
                         android:layout_marginStart="3dp"
                         android:layout_marginEnd="3dp"
                         android:layout_weight="0.5"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/back_of_card" />
 
                     <ImageView
                         android:id="@+id/imageView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="130dp"
+                        android:layout_height="140dp"
                         android:layout_marginStart="3dp"
                         android:layout_marginEnd="3dp"
                         android:layout_weight="0.5"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/back_of_card" />
 
                     <ImageView
                         android:id="@+id/imageView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="130dp"
+                        android:layout_height="140dp"
                         android:layout_marginStart="3dp"
                         android:layout_marginEnd="3dp"
                         android:layout_weight="0.5"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/back_of_card" />
                 </LinearLayout>
 
                 <TextView
@@ -163,46 +162,47 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
                     android:layout_weight="2"
                     android:background="#878787"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/imageView16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="130dp"
+                        android:layout_height="140dp"
                         android:layout_marginStart="3dp"
                         android:layout_marginEnd="3dp"
                         android:layout_weight="0.5"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/back_of_card" />
 
                     <ImageView
                         android:id="@+id/imageView15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="130dp"
+                        android:layout_height="140dp"
                         android:layout_marginStart="3dp"
                         android:layout_marginEnd="3dp"
                         android:layout_weight="0.5"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/back_of_card" />
 
                     <ImageView
                         android:id="@+id/imageView14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="130dp"
+                        android:layout_height="140dp"
                         android:layout_marginStart="3dp"
                         android:layout_marginEnd="3dp"
                         android:layout_weight="0.5"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/back_of_card" />
 
                     <ImageView
                         android:id="@+id/imageView13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="130dp"
+                        android:layout_height="140dp"
                         android:layout_marginStart="3dp"
                         android:layout_marginEnd="3dp"
                         android:layout_weight="0.5"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/back_of_card" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -352,7 +352,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/card_ts" />
 
                     <ImageView
                         android:id="@+id/userCardTwoIV"
@@ -361,7 +361,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/ic_launcher" />
 
                     <ImageView
                         android:id="@+id/userCardThreeIV"
@@ -370,7 +370,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/card_qc" />
 
                     <ImageView
                         android:id="@+id/userCardFourIV"
@@ -379,7 +379,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/card_jh" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -418,7 +418,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:backgroundTint="#707D7F"
-                    android:backgroundTintMode="add"
                     android:text="Fold" />
             </LinearLayout>
 
@@ -440,7 +439,7 @@
 
                 <EditText
                     android:id="@+id/betAmount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:ems="10"
@@ -455,6 +454,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:backgroundTint="#707D7F"
+                    android:minWidth="50dp"
                     android:text="Bet" />
 
             </LinearLayout>
